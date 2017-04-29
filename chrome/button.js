@@ -120,6 +120,10 @@ function ComposerOpenIn(appname) {
 		} else {
 			var process = Components.classes["@mozilla.org/process/util;1"].createInstance(Components.interfaces.nsIProcess);
 			process.init(file);
-			process.runw(false, [url], 1);
+			if (process.runw) {
+				process.runw(false, [url], 1);
+			} else {
+				process.run(false, [url], 1);
+			}
 		}
 }
