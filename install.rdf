@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+
+<RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:em="http://www.mozilla.org/2004/em-rdf#">
+
+  <Description
+    about="urn:mozilla:install-manifest"
+
+    em:name="Composer Open In"
+    em:description="Adds a toolbar button to Composer to open the current file in another editor or browser."
+    em:creator="Isaac Schemm"
+
+    em:id="composer-open-in@lakora.us"
+    em:version="1.0.0"
+    em:homepageURL="https://github.com/IsaacSchemm/composer-open-in"
+
+    em:iconURL="chrome://composer-open-in/content/icon.png" >
+
+    <em:targetApplication>
+	  <!-- SeaMonkey -->
+	  <Description>
+		<em:id>{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}</em:id>
+		<em:minVersion>2.4</em:minVersion>
+		<em:maxVersion>*</em:maxVersion>
+	  </Description>
+	</em:targetApplication>
+
+  </Description>
+
+</RDF>

@@ -1,0 +1,4 @@
+content composer-open-in chrome/
+
+# SeaMonkey
+overlay chrome://editor/content/editor.xul chrome://composer-open-in/content/composer-overlay.xul
