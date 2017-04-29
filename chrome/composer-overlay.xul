@@ -26,9 +26,12 @@
 				<menupopup>
 					<menuitem label="Open in Notepad++" oncommand="ComposerOpenIn('notepad++')" />
 					<menuitem label="Open in Visual Studio Code" oncommand="ComposerOpenIn('vscode')" />
+					<menuitem label="Open in Bluefish" oncommand="ComposerOpenIn('bluefish')" />
 					<menuseparator />
-					<menuitem label="Open in SeaMonkey Browser" oncommand="ComposerOpenIn('seamonkey')" />
+					<menuitem label="Open in SeaMonkey" oncommand="ComposerOpenIn('seamonkey')" />
+					<menuseparator />
 					<menuitem label="Open in Google Chrome" oncommand="ComposerOpenIn('chrome')" />
+					<menuitem label="Open in Mozilla Firefox" oncommand="ComposerOpenIn('firefox')" />
 					<menuitem label="Open in Internet Explorer" oncommand="ComposerOpenIn('ie')" />
 				</menupopup>
 		</toolbarbutton>

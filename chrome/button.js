@@ -4,7 +4,8 @@
 
 function ComposerOpenIn(appname) {
 		var exePaths = [], macBundleId = "", stripFileProtocol = false;
-		  
+		var url = GetCurrentEditor().document.location.href;
+		
 		switch (appname) {
 			case "notepad++":
 				stripFileProtocol = true;
@@ -12,16 +13,28 @@ function ComposerOpenIn(appname) {
 					"C:\\Program Files\\Notepad++\\notepad++.exe",
 					"C:\\Program Files (x86)\\Notepad++\\notepad++.exe",
 				];
-				macBundleId = "org.mozilla.firefox";
 				break;
 			case "vscode":
 				stripFileProtocol = true;
 				exePaths = [
+					"/usr/local/bin/code",
+					"/usr/bin/code",
 					"C:\\Program Files\\Microsoft VS Code\\Code.exe",
 					"C:\\Program Files (x86)\\Microsoft VS Code\\Code.exe",
 				];
-				macBundleId = "org.mozilla.firefox";
 				break;
+			case "bluefish":
+				stripFileProtocol = true;
+				exePaths = [
+					"/usr/local/bin/bluefish",
+					"/usr/bin/bluefish",
+					"C:\\Program Files\\Bluefish\\bluefish.exe",
+					"C:\\Program Files (x86)\\Bluefish\\bluefish.exe",
+				];
+				break;
+			case "seamonkey":
+				window.open(url);
+				return;
 			case "chrome":
 				exePaths = [
 					"/usr/local/bin/google-chrome",
@@ -34,15 +47,6 @@ function ComposerOpenIn(appname) {
 					"C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe",
 				];
 				macBundleId = "com.google.Chrome";
-				break;
-			case "vivaldi":
-				exePaths = [
-					"/usr/local/bin/vivaldi",
-					"/usr/bin/vivaldi",
-					"C:\\Program Files\\Vivaldi\\Application\\vivaldi.exe",
-					"C:\\Program Files (x86)\\Vivaldi\\Application\\vivaldi.exe",
-				];
-				macBundleId = "com.vivaldi.Vivaldi";
 				break;
 			case "ie":
 				exePaths = [
@@ -78,7 +82,6 @@ function ComposerOpenIn(appname) {
 		var os = Components.classes["@mozilla.org/xre/app-info;1"].getService(Components.interfaces.nsIXULRuntime).OS;
 		var _nsIFile = Components.Constructor("@mozilla.org/file/local;1", "nsILocalFile", "initWithPath");
 		
-		var url = GetCurrentEditor().document.location.href;
 		if (stripFileProtocol) {
 			var iosvc = Components.classes["@mozilla.org/network/io-service;1"].getService(Components.interfaces.nsIIOService);
 			var url = iosvc.newURI(url, null, null);
