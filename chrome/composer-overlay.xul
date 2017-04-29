@@ -20,7 +20,7 @@
 		<toolbarbutton id="composerOpenInButton"
 			type="menu"
 			label="Open In..."
-			tooltiptext="Open In..."
+			tooltiptext="Open current file in another application"
 			class="composer-open-in chromeclass-toolbar-additional"
 			insertafter="composerOpenInSeparator">
 				<menupopup>
