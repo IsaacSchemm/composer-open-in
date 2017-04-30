@@ -2,6 +2,42 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
+window.addEventListener("load", function load(event) {
+	window.removeEventListener("load", load, false);
+
+	var composerOpenInButton = document.getElementById("composerOpenInButton");
+	var menupopup = composerOpenInButton.childNodes[0];
+	menupopup.addEventListener("popupshowing", function () {
+		var firstChild;
+		do {
+			firstChild = menupopup.childNodes[0];
+			if (firstChild.id == "composerOpenInEndEditors") break;
+			menupopup.removeChild(firstChild);
+		} while (firstChild != null);
+		
+		[
+			"custom-editor-1",
+			"custom-editor-2",
+			"custom-editor-3"
+		].forEach(function (setting) {
+			var prefs = Components.classes["@mozilla.org/preferences-service;1"]
+				.getService(Components.interfaces.nsIPrefService)
+				.getBranch("extensions.composer-open-in." + setting + ".");
+			try {
+				var path = prefs.getCharPref("path");
+				if (path) {
+					var node = document.createElement("menuitem");
+						node.setAttribute("label", prefs.getCharPref("label") || path);
+					node.addEventListener("command", function () {
+						ComposerOpenIn(setting);
+					});
+					menupopup.insertBefore(node, firstChild);
+				}
+			} catch (e) { }
+		});
+	}, false);
+}, false);
+
 function ComposerOpenIn(appname) {
 		var exePaths = [], macBundleId = "", stripFileProtocol = false;
 		var url = GetCurrentEditor().document.location.href;
@@ -9,25 +45,12 @@ function ComposerOpenIn(appname) {
 		switch (appname) {
 			case "custom-editor-1":
 			case "custom-editor-2":
+			case "custom-editor-3":
 			stripFileProtocol = true;
 				var path = Components.classes["@mozilla.org/preferences-service;1"]
 					.getService(Components.interfaces.nsIPrefService)
 					.getBranch("extensions.composer-open-in." + appname + ".")
 					.getCharPref("path");
-				if (!path) {
-					var title = "Composer Open In";
-					var message = "This custom application does not have a path defined. Got to the Add-on Manager to define a path.";
-					try {
-						Components.classes['@mozilla.org/alerts-service;1']
-							.getService(Components.interfaces.nsIAlertsService)
-							.showAlertNotification(null, title, message, false, '', null);
-					} catch (e) {
-						Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
-							.getService(Components.interfaces.nsIPromptService)
-							.alert(null, title, message);
-					}
-					return;
-				}
 				exePaths = [path];
 				break;
 			case "seamonkey":

@@ -26,7 +26,7 @@
 				<menupopup>
 					<menuitem label="Open in editor #1" oncommand="ComposerOpenIn('custom-editor-1')" />
 					<menuitem label="Open in editor #2" oncommand="ComposerOpenIn('custom-editor-2')" />
-					<menuseparator />
+					<menuseparator id="composerOpenInEndEditors" />
 					<menuitem label="Open in SeaMonkey" oncommand="ComposerOpenIn('seamonkey')" />
 					<menuseparator />
 					<menuitem label="Open in Google Chrome" oncommand="ComposerOpenIn('chrome')" />
