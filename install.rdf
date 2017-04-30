@@ -14,7 +14,9 @@
     em:version="1.0.0"
     em:homepageURL="https://github.com/IsaacSchemm/composer-open-in"
 
-    em:iconURL="chrome://composer-open-in/content/icon.png" >
+    em:iconURL="chrome://composer-open-in/content/icon.png"
+	em:optionsURL="chrome://composer-open-in/content/options.xul"
+	em:optionsType="2" >
 
     <em:targetApplication>
 	  <!-- SeaMonkey -->

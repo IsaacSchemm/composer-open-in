@@ -7,30 +7,28 @@ function ComposerOpenIn(appname) {
 		var url = GetCurrentEditor().document.location.href;
 		
 		switch (appname) {
-			case "notepad++":
-				stripFileProtocol = true;
-				exePaths = [
-					"C:\\Program Files\\Notepad++\\notepad++.exe",
-					"C:\\Program Files (x86)\\Notepad++\\notepad++.exe",
-				];
-				break;
-			case "vscode":
-				stripFileProtocol = true;
-				exePaths = [
-					"/usr/local/bin/code",
-					"/usr/bin/code",
-					"C:\\Program Files\\Microsoft VS Code\\Code.exe",
-					"C:\\Program Files (x86)\\Microsoft VS Code\\Code.exe",
-				];
-				break;
-			case "bluefish":
-				stripFileProtocol = true;
-				exePaths = [
-					"/usr/local/bin/bluefish",
-					"/usr/bin/bluefish",
-					"C:\\Program Files\\Bluefish\\bluefish.exe",
-					"C:\\Program Files (x86)\\Bluefish\\bluefish.exe",
-				];
+			case "custom-editor-1":
+			case "custom-editor-2":
+			stripFileProtocol = true;
+				var path = Components.classes["@mozilla.org/preferences-service;1"]
+					.getService(Components.interfaces.nsIPrefService)
+					.getBranch("extensions.composer-open-in." + appname + ".")
+					.getCharPref("path");
+				if (!path) {
+					var title = "Composer Open In";
+					var message = "This custom application does not have a path defined. Got to the Add-on Manager to define a path.";
+					try {
+						Components.classes['@mozilla.org/alerts-service;1']
+							.getService(Components.interfaces.nsIAlertsService)
+							.showAlertNotification(null, title, message, false, '', null);
+					} catch (e) {
+						Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
+							.getService(Components.interfaces.nsIPromptService)
+							.alert(null, title, message);
+					}
+					return;
+				}
+				exePaths = [path];
 				break;
 			case "seamonkey":
 				window.open(url);
