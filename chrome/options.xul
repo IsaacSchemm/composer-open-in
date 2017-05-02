@@ -2,8 +2,11 @@
 <vbox xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 	<setting pref="extensions.composer-open-in.custom-editor-1.label" type="string" title="Custom editor #1 label"/>
 	<setting pref="extensions.composer-open-in.custom-editor-1.path" type="string" title="Custom editor #1 path"/>
+	<setting pref="extensions.composer-open-in.custom-editor-1.args" type="string" title="Custom editor #1 arguments (optional)"/>
 	<setting pref="extensions.composer-open-in.custom-editor-2.label" type="string" title="Custom editor #2 label"/>
 	<setting pref="extensions.composer-open-in.custom-editor-2.path" type="string" title="Custom editor #2 path"/>
+	<setting pref="extensions.composer-open-in.custom-editor-2.args" type="string" title="Custom editor #2 arguments (optional)"/>
 	<setting pref="extensions.composer-open-in.custom-editor-3.label" type="string" title="Custom editor #3 label"/>
 	<setting pref="extensions.composer-open-in.custom-editor-3.path" type="string" title="Custom editor #3 path"/>
+	<setting pref="extensions.composer-open-in.custom-editor-3.args" type="string" title="Custom editor #3 arguments (optional)"/>
 </vbox>

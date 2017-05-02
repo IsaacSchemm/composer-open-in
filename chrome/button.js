@@ -39,7 +39,7 @@ window.addEventListener("load", function load(event) {
 }, false);
 
 function ComposerOpenIn(appname) {
-		var exePaths = [], macBundleId = "", stripFileProtocol = false;
+		var exePaths = [], macBundleId = "", additionalArgs = [], stripFileProtocol = false;
 		var url = GetCurrentEditor().document.location.href;
 		
 		switch (appname) {
@@ -47,11 +47,11 @@ function ComposerOpenIn(appname) {
 			case "custom-editor-2":
 			case "custom-editor-3":
 			stripFileProtocol = true;
-				var path = Components.classes["@mozilla.org/preferences-service;1"]
+				var prefs = Components.classes["@mozilla.org/preferences-service;1"]
 					.getService(Components.interfaces.nsIPrefService)
-					.getBranch("extensions.composer-open-in." + appname + ".")
-					.getCharPref("path");
-				exePaths = [path];
+					.getBranch("extensions.composer-open-in." + appname + ".");
+				exePaths = [prefs.getCharPref("path")];
+				additionalArgs = prefs.getCharPref("args").split(" ").filter(s => s != "");
 				break;
 			case "seamonkey":
 				window.open(url);
@@ -115,7 +115,8 @@ function ComposerOpenIn(appname) {
 			if (openExe.isFile()) {
 				var process = Components.classes["@mozilla.org/process/util;1"].createInstance(Components.interfaces.nsIProcess);
 				process.init(openExe);
-				process.runwAsync(["-b", macBundleId, "--args", url], 4, {
+				let args = ["-b", macBundleId, "--args"].concat(additionalArgs).concat([url]);
+				process.runwAsync(args, args.length, {
 					observe: function (subject, topic, data) {
 						if (topic == "process-failed" || subject.exitValue != 0) {
 							showNotFoundMessage();
@@ -141,10 +142,11 @@ function ComposerOpenIn(appname) {
 		} else {
 			var process = Components.classes["@mozilla.org/process/util;1"].createInstance(Components.interfaces.nsIProcess);
 			process.init(file);
+			let args = additionalArgs.concat([url]);
 			if (process.runw) {
-				process.runw(false, [url], 1);
+				process.runw(false, args, args.length);
 			} else {
-				process.run(false, [url], 1);
+				process.run(false, args, args.length);
 			}
 		}
 }
